@@ -17,6 +17,7 @@
   --owlbear: #3d4a5c; --owlbear-bg: #eaecf0; --owlbear-border: rgba(61,74,92,0.3);
   --dragon: #6b2020; --dragon-bg: #f2e8e8; --dragon-border: rgba(107,32,32,0.3);
   --laird: #2a5e38; --laird-bg: #e6f2ea; --laird-border: rgba(42,94,56,0.3);
+  --duke: #5a3e1b; --duke-bg: #f2ece0; --duke-border: rgba(90,62,27,0.3);
   --done: #1f5c38;
   --border: rgba(160,130,60,0.22); --border-mid: rgba(160,130,60,0.35);
   --shadow: 0 2px 16px rgba(30,22,8,0.08); --radius: 10px;
@@ -103,10 +104,15 @@ body { font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); max-width:
 .tally-btn-sm.plus.laird:hover  { background: #cce6d4; }
 .tally-btn-sm.minus.laird { background: var(--laird-bg); border-color: var(--laird-border); color: var(--laird); opacity: 0.6; }
 .tally-btn-sm.minus.laird:hover { background: #cce6d4; opacity: 1; }
+.tally-btn-sm.plus.duke  { background: var(--duke-bg); border-color: var(--duke-border); color: var(--duke); }
+.tally-btn-sm.plus.duke:hover  { background: #e8dcc8; }
+.tally-btn-sm.minus.duke { background: var(--duke-bg); border-color: var(--duke-border); color: var(--duke); opacity: 0.6; }
+.tally-btn-sm.minus.duke:hover { background: #e8dcc8; opacity: 1; }
 .tally-btn-sm:disabled { opacity: 0.25; cursor: not-allowed; }
 .tally-count { font-family: 'Cinzel', serif; font-size: 15px; font-weight: 500; min-width: 20px; text-align: center; }
 .tally-count.chaos { color: var(--dragon); }
 .tally-count.laird { color: var(--laird); }
+.tally-count.duke  { color: var(--duke); }
 
 .stats-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); background: rgba(160,130,60,0.04); }
 .stat-card { background: var(--parchment); border: 0.5px solid var(--border-mid); border-radius: 8px; padding: 0.5rem 0.75rem; text-align: center; }
@@ -134,13 +140,14 @@ body { font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); max-width:
 .tag-justin { background: var(--justin-bg); color: var(--justin); }
 .tag-meg    { background: var(--meg-bg);    color: var(--meg); }
 .log-chore { flex: 1; color: var(--ink-mid); }
-.setup-banner { background: #fff8ec; border: 1px solid rgba(160,130,60,0.4); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem; font-size: 13px; line-height: 1.7; color: var(--ink-mid); }
-.setup-banner h2 { font-family: 'Cinzel', serif; font-size: 14px; color: var(--gold-dim); margin-bottom: 0.75rem; }
-.url-input-row { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
-.url-input { flex: 1; min-width: 200px; font-family: 'Crimson Pro', serif; font-size: 13px; padding: 6px 10px; border: 0.5px solid var(--border-mid); border-radius: 6px; background: white; color: var(--ink); }
+.setup-banner { background: #fff8ec; border: 1px solid rgba(160,130,60,0.4); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; font-size: 14px; line-height: 1.7; color: var(--ink-mid); }
+.setup-banner h2 { font-family: 'Cinzel', serif; font-size: 16px; color: var(--gold-dim); margin-bottom: 0.75rem; }
+.setup-banner p { margin-bottom: 0.5rem; font-size: 13px; }
+.url-input-row { display: flex; flex-direction: column; gap: 10px; margin-top: 1.25rem; }
+.url-input { width: 100%; font-family: 'Crimson Pro', serif; font-size: 16px; padding: 12px 14px; border: 1px solid var(--border-mid); border-radius: 8px; background: white; color: var(--ink); -webkit-appearance: none; appearance: none; }
 .url-input:focus { outline: none; border-color: var(--gold); }
-.url-save-btn { font-family: 'Cinzel', serif; font-size: 11px; padding: 6px 14px; background: var(--gold-pale); border: 0.5px solid var(--border-mid); border-radius: 6px; color: var(--gold-dim); cursor: pointer; }
-.url-save-btn:hover { background: rgba(160,130,60,0.2); }
+.url-save-btn { width: 100%; font-family: 'Cinzel', serif; font-size: 13px; padding: 14px; background: var(--gold-pale); border: 1px solid var(--border-mid); border-radius: 8px; color: var(--gold-dim); cursor: pointer; letter-spacing: 0.05em; -webkit-appearance: none; appearance: none; }
+.url-save-btn:hover, .url-save-btn:active { background: rgba(160,130,60,0.25); }
 .loading-screen { text-align: center; padding: 3rem 1rem; color: var(--ink-faint); font-style: italic; }
 .spinner { font-size: 24px; animation: spin 1.5s linear infinite; display: block; margin-bottom: 1rem; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -156,8 +163,9 @@ body { font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); max-width:
 <div class="setup-banner" id="setupBanner">
   <h2>⚙️ One-time setup</h2>
   <p>Paste your Google Apps Script Web App URL below to connect to your shared Choracle sheet.</p>
+  <p style="font-size:12px;color:var(--ink-faint)">Tip: copy the URL on desktop first, then paste it here on your phone.</p>
   <div class="url-input-row">
-    <input class="url-input" id="scriptUrlInput" type="text" placeholder="https://script.google.com/macros/s/.../exec" />
+    <input class="url-input" id="scriptUrlInput" type="url" inputmode="url" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="https://script.google.com/macros/s/.../exec" />
     <button class="url-save-btn" id="saveBtn">Save &amp; Connect</button>
   </div>
 </div>
@@ -207,6 +215,12 @@ body { font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); max-width:
     <span class="laird-sub">tallies only</span>
   </div>
   <div class="laird-grid" id="lairdGrid"></div>
+  <div class="laird-header">
+    <span class="laird-icon">🍽️</span>
+    <span class="laird-title" style="color:var(--duke)">Duke of Dishes</span>
+    <span class="laird-sub">tallies only</span>
+  </div>
+  <div class="laird-grid" id="dukeGrid"></div>
   <div class="log-toggle" id="logToggle">
     <span id="logToggleLabel">show quest log</span> <span id="logArrow">▾</span>
   </div>
@@ -223,6 +237,7 @@ var PEOPLE = [
   { id:'meg',    label:'Lady Meg the Mermaid Princess', short:'Lady Meg',   cv:'--meg'    }
 ];
 var LAUNDRY = ['Ran/swapped laundry','Folded laundry','Put away laundry'];
+var DISHES  = ['Load dishwasher','Unload dishwasher','Put away','Hand wash'];
 var ROLES = [
   {
     id:'owlbear', name:'Owlbear', icon:'🦉',
@@ -317,14 +332,41 @@ function showApp() {
 }
 
 function saveScriptUrl() {
-  var val = document.getElementById('scriptUrlInput').value.trim();
-  if (val.indexOf('script.google.com') === -1) {
-    alert("That doesn't look like a Google Apps Script URL.");
+  var raw = document.getElementById('scriptUrlInput').value;
+  var val = raw.trim();
+
+  // Show what we received so mobile users can debug
+  if (!val) {
+    showSetupError('The field appears empty. Please paste your Web App URL and try again.');
     return;
   }
+
+  // Accept any URL containing "script.google" or "exec" as a loose check
+  // Mobile keyboards sometimes mangle URLs — accept anything that looks plausible
+  if (val.indexOf('google') === -1 && val.indexOf('exec') === -1) {
+    showSetupError('That doesn\'t look right. Make sure you copied the full Web App URL from Apps Script (it should end in /exec). Got: ' + val.slice(0, 80));
+    return;
+  }
+
+  // Ensure it starts with https
+  if (val.indexOf('http') !== 0) {
+    val = 'https://' + val;
+  }
+
   SCRIPT_URL = val;
   localStorage.setItem('choracle_script_url', SCRIPT_URL);
   showApp();
+}
+
+function showSetupError(msg) {
+  var el = document.getElementById('setupError');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'setupError';
+    el.style.cssText = 'margin-top:12px;padding:10px 12px;background:#fde8e8;border:1px solid rgba(180,40,40,0.3);border-radius:8px;font-size:13px;color:#7b2020;line-height:1.5;word-break:break-all;';
+    document.getElementById('setupBanner').appendChild(el);
+  }
+  el.textContent = msg;
 }
 
 // ─── JSONP ───────────────────────────────────────────────────────────
@@ -496,6 +538,7 @@ function render() {
   renderCol(0);
   renderCol(1);
   renderLaird();
+  renderDuke();
   renderStats();
 }
 
@@ -594,6 +637,23 @@ function renderLaird() {
     h += '</div>';
   });
   document.getElementById('lairdGrid').innerHTML = h;
+}
+
+function renderDuke() {
+  var h = '';
+  PEOPLE.forEach(function(p) {
+    h += '<div class="laird-person">'
+      + '<div class="laird-person-name" style="color:var(' + p.cv + ')">' + p.short + '</div>';
+    DISHES.forEach(function(task, ti) {
+      var taskKey = 'dishes_' + ti;
+      h += '<div class="laird-tally-row">'
+        + '<span class="laird-tally-label">' + task + '</span>'
+        + tallyControls(p.id, taskKey, task, p.short, 'duke')
+        + '</div>';
+    });
+    h += '</div>';
+  });
+  document.getElementById('dukeGrid').innerHTML = h;
 }
 
 function allKeys(role, personId) {
